@@ -15,6 +15,9 @@ export class EnvVar {
   }
 
   public asNumber(): number {
+    if (this.value == null) {
+      return undefined;
+    }
     let value = Number(this.value);
     if (isNaN(value)) {
       throw new Error(`Env variable ${this.name} is not a number`);
@@ -23,6 +26,9 @@ export class EnvVar {
   }
 
   public asBoolean(): boolean {
+    if (this.value == null) {
+      return undefined;
+    }
     return Boolean(this.value);
   }
 }
