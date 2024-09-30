@@ -1,11 +1,16 @@
 let GLOBAL_NAMES = new Set<string>();
 
 export class EnvVar {
-  public constructor(private name: string, private value?: string) {}
+  public constructor(
+    private name: string,
+    private value?: string,
+  ) {}
 
   public required(): this {
     if (this.value == null) {
-      throw new Error(`Env variable ${this.name} is required but not provided.`);
+      throw new Error(
+        `Env variable ${this.name} is required but not provided.`,
+      );
     }
     return this;
   }
@@ -29,7 +34,15 @@ export class EnvVar {
     if (this.value == null) {
       return undefined;
     }
-    return Boolean(this.value);
+    if (this.value === "true") {
+      return true;
+    } else if (this.value === "false") {
+      return false;
+    } else {
+      throw new Error(
+        `Env variable ${this.name}'s value needs to be either true or false.`,
+      );
+    }
   }
 }
 
